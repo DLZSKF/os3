@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&#x5b9e;&#x9a8c;&#x4efb;&#x52a1;&#x4e8c;&#x4e0a;&#x673a;&#x62a5;&#x544a;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="实验任务二上机报告">实验任务二上机报告</h1>
+<h2 id="任务一">任务一</h2>
+<p>代码如下：</p>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;
+
+<span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">thread</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-type">int</span> i;
+	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; i++) {
+		++sum;
+	}
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+}
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-type">pthread_t</span> tid1, tid2;
+	<span class="hljs-built_in">pthread_create</span>(&amp;tid1, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_create</span>(&amp;tid2, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_join</span>(tid1, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_join</span>(tid2, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1000000 + 1000000 = %d\n&quot;</span>, sum);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>运行结果如下：</p>
+<p><img src="file:///c:\Users\lxf\Desktop\新建文件夹\1.png" alt="alt text">
+代码如下：</p>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+
+<span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;
+<span class="hljs-type">pthread_mutex_t</span> mutex;
+
+<span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">thread</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-type">int</span> i;
+	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; i++) {
+		<span class="hljs-built_in">pthread_mutex_lock</span>(&amp;mutex);
+		++sum;
+		<span class="hljs-built_in">pthread_mutex_unlock</span>(&amp;mutex);
+	}
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+}
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-type">pthread_t</span> tid1, tid2;
+	<span class="hljs-built_in">pthread_mutex_init</span>(&amp;mutex, <span class="hljs-literal">NULL</span>);
+
+	<span class="hljs-built_in">pthread_create</span>(&amp;tid1, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_create</span>(&amp;tid2, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_join</span>(tid1, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_join</span>(tid2, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1000000 + 1000000 = %d\n&quot;</span>, sum);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>运行结果如下：</p>
+<p><img src="file:///c:\Users\lxf\Desktop\新建文件夹\2.png" alt="alt text">
+代码如下：</p>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;semaphore.h&gt;</span></span>
+
+<span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;
+<span class="hljs-type">sem_t</span> sem;
+
+<span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">thread</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-type">int</span> i;
+	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; i++) {
+		<span class="hljs-built_in">sem_wait</span>(&amp;sem);
+		++sum;
+		<span class="hljs-built_in">sem_post</span>(&amp;sem);
+	}
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+}
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+	<span class="hljs-type">pthread_t</span> tid1, tid2;
+	<span class="hljs-built_in">sem_init</span>(&amp;sem, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+
+	<span class="hljs-built_in">pthread_create</span>(&amp;tid1, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_create</span>(&amp;tid2, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_join</span>(tid1, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">pthread_join</span>(tid2, <span class="hljs-literal">NULL</span>);
+	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1000000 + 1000000 = %d\n&quot;</span>, sum);
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p>运行结果如下：</p>
+<p><img src="file:///c:\Users\lxf\Desktop\新建文件夹\3.png" alt="alt text"></p>
+<h2 id="任务二">任务二</h2>
+<p>代码如下：</p>
+<pre><code class="language-cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;semaphore.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> BUFFER_SIZE 5</span>
+<span class="hljs-type">int</span> buffer[BUFFER_SIZE];
+<span class="hljs-type">int</span> count = <span class="hljs-number">0</span>;
+<span class="hljs-type">int</span> in = <span class="hljs-number">0</span>;
+<span class="hljs-type">int</span> out = <span class="hljs-number">0</span>;
+
+<span class="hljs-type">sem_t</span> empty;
+<span class="hljs-type">sem_t</span> full;
+<span class="hljs-type">pthread_mutex_t</span> mutex;
+
+<span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">producer</span><span class="hljs-params">(<span class="hljs-type">void</span> *arg)</span> </span>{
+    <span class="hljs-type">int</span> id = *(<span class="hljs-type">int</span> *)arg;
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
+        <span class="hljs-built_in">sem_wait</span>(&amp;empty);
+        <span class="hljs-built_in">pthread_mutex_lock</span>(&amp;mutex);
+
+        <span class="hljs-comment">// 生产操作</span>
+        buffer[in] = <span class="hljs-built_in">rand</span>() % <span class="hljs-number">100</span>;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;生产者 %d 在位置 %d 生产了 %d (总数: %d)\n&quot;</span>, id, in, buffer[in], count + <span class="hljs-number">1</span>);
+        in = (in + <span class="hljs-number">1</span>) % BUFFER_SIZE;
+        count++;
+
+        <span class="hljs-built_in">pthread_mutex_unlock</span>(&amp;mutex);
+        <span class="hljs-built_in">sem_post</span>(&amp;full);
+        <span class="hljs-built_in">sleep</span>(<span class="hljs-number">1</span>);
+    }
+    <span class="hljs-built_in">pthread_exit</span>(<span class="hljs-literal">NULL</span>);
+}
+
+<span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">consumer</span><span class="hljs-params">(<span class="hljs-type">void</span> *arg)</span> </span>{
+    <span class="hljs-type">int</span> id = *(<span class="hljs-type">int</span> *)arg;
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
+        <span class="hljs-built_in">sem_wait</span>(&amp;full);
+        <span class="hljs-built_in">pthread_mutex_lock</span>(&amp;mutex);
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++) {
+        <span class="hljs-built_in">pthread_create</span>(&amp;producers[i], <span class="hljs-literal">NULL</span>, producer, &amp;producer_ids[i]);
+        <span class="hljs-built_in">pthread_create</span>(&amp;consumers[i], <span class="hljs-literal">NULL</span>, consumer, &amp;consumer_ids[i]);
+    }
+
+    <span class="hljs-comment">// 等待所有线程完成</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; i++) {
+        <span class="hljs-built_in">pthread_join</span>(producers[i], <span class="hljs-literal">NULL</span>);
+        <span class="hljs-built_in">pthread_join</span>(consumers[i], <span class="hljs-literal">NULL</span>);
+    nclude &lt;stdio.h&gt;
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;pthread.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;semaphore.h&gt;</span></span>
+
+<span class="hljs-type">int</span> sum = <span class="hljs-number">0</span>;
+<span class="hljs-type">sem_t</span> sem;
+
+<span class="hljs-function"><span class="hljs-type">void</span> *<span class="hljs-title">thread</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-type">int</span> i;
+        <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000000</span>; i++) {
+                <span class="hljs-built_in">sem_wait</span>(&amp;sem);
+                ++sum;
+                <span class="hljs-built_in">sem_post</span>(&amp;sem);
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+}
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-type">pthread_t</span> tid1, tid2;
+        <span class="hljs-built_in">sem_init</span>(&amp;sem, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+
+        <span class="hljs-built_in">pthread_create</span>(&amp;tid1, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+        <span class="hljs-built_in">pthread_create</span>(&amp;tid2, <span class="hljs-literal">NULL</span>, thread, <span class="hljs-literal">NULL</span>);
+        <span class="hljs-built_in">pthread_join</span>(tid1, <span class="hljs-literal">NULL</span>);
+        <span class="hljs-built_in">pthread_join</span>(tid2, <span class="hljs-literal">NULL</span>);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1000000 + 1000000 = %d\n&quot;</span>, sum);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}}
+
+    <span class="hljs-comment">// 销毁信号量和互斥锁</span>
+    <span class="hljs-built_in">sem_destroy</span>(&amp;empty);
+    <span class="hljs-built_in">sem_destroy</span>(&amp;full);
+    <span class="hljs-built_in">pthread_mutex_destroy</span>(&amp;mutex);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p><img src="file:///c:\Users\lxf\Desktop\新建文件夹\ae671bc6bd8c75545a81caa0b12e8fdc.png" alt="alt text"><img src="file:///c:\Users\lxf\Desktop\新建文件夹\2559ef34eff80ab33bce0ea2f22923f5.png" alt="alt text"><img src="file:///c:\Users\lxf\Desktop\新建文件夹\b42239c6ec432c91144a5f16e63ff06a.png" alt="alt text">
+运行结果如下：
+<img src="file:///c:\Users\lxf\Desktop\新建文件夹\%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png" alt="alt text"></p>
+
+            
+            
+        </body>
+        </html>
