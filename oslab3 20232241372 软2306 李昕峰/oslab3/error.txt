@@ -1,0 +1,4 @@
+./function.c: 在函数‘main’中:
+./function.c:38:5: 警告：隐式声明函数‘wait’ [-Wimplicit-function-declaration]
+   38 |     wait(NULL);
+      |     ^~~~
