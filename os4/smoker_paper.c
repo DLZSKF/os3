@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
         sleep(rate);
 
         printf("Smoker with Paper [%d]: Finished smoking. Signaling supplier.\n", getpid());
-        up(agent_sem_id); // 通知供应者
+        up(agent_sem_id); 
     }
 
     return EXIT_SUCCESS;
