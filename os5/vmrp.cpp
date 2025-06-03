@@ -59,7 +59,7 @@ void Replace::Lru(void) {
                     cout << PageFrames[j] << " ";
             cout << endl;
             continue;
-        } else
+       } else
             // 如果引用页还未放栈顶，则为缺页，缺页数加1
             FaultNumber++;
         // 栈底页号记入淘汰页数组中
