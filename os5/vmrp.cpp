@@ -150,7 +150,7 @@ void Replace::Clock(void) {
             // 记录被淘汰的页面
             if (PageFrames[pointer] != -1) {
                 EliminatePage[eliminateIndex++] = PageFrames[pointer];
-            }
+           }
 
             // 进行页面替换
             PageFrames[pointer] = next;
