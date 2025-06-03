@@ -264,26 +264,39 @@ void Replace::Lfu(void) {
             }
         }
 
-        if (!found) {
-            FaultNumber++;
-            // 找到使用频率最低的页面进行替换
-            int minFreqIndex = 0;
-            for (int i = 1; i < FrameNumber; i++) {
-                if (frequency[i] < frequency[minFreqIndex]) {
-                    minFreqIndex = i;
-                }
-            }
+       if (!found) {
+    FaultNumber++;
+    int targetFrameIndex = -1; // 目标页框索引
 
-            // 记录被淘汰的页面
-            if (PageFrames[minFreqIndex] != -1) {
-                EliminatePage[eliminateIndex++] = PageFrames[minFreqIndex];
-            }
-
-            // 进行页面替换
-            PageFrames[minFreqIndex] = next;
-            frequency[minFreqIndex] = 1;  // 新页面初始使用频率为1
+    // 1. 检查是否有空闲页框
+    for (int i = 0; i < FrameNumber; i++) {
+        if (PageFrames[i] == -1) { // 假设-1代表空页框
+            targetFrameIndex = i;
+            break;
         }
+    }
 
+    if (targetFrameIndex != -1) { // 2. 如果有空闲页框，直接使用
+        // 不需要记录淘汰页，因为是填入空框
+    } else { // 3. 如果所有页框都满了，执行MFU替换逻辑
+        int maxFreqIndex = 0;
+        for (int i = 1; i < FrameNumber; i++) {
+            if (frequency[i] > frequency[maxFreqIndex]) {
+                maxFreqIndex = i;
+            }
+        }
+        targetFrameIndex = maxFreqIndex;
+
+        // 记录被淘汰的页面
+        if (PageFrames[targetFrameIndex] != -1) { // 确保确实有页面被淘汰
+            EliminatePage[eliminateIndex++] = PageFrames[targetFrameIndex];
+        }
+    }
+
+    // 进行页面替换/填充
+    PageFrames[targetFrameIndex] = next;
+    frequency[targetFrameIndex] = 1;  // 新页面或刚调入页面的初始使用频率为1
+}
         // 报告当前实存中页号
         for (int j = 0; j < FrameNumber; j++) {
             if (PageFrames[j] >= 0)
@@ -323,26 +336,38 @@ void Replace::Mfu(void) {
         }
 
         if (!found) {
-            FaultNumber++;
-            // 找到使用频率最高的页面进行替换
-            int maxFreqIndex = 0;
-            for (int i = 1; i < FrameNumber; i++) {
-                if (frequency[i] > frequency[maxFreqIndex]) {
-                    maxFreqIndex = i;
-                }
-            }
+    FaultNumber++;
+    int targetFrameIndex = -1; // 目标页框索引
 
-            // 记录被淘汰的页面
-            if (PageFrames[maxFreqIndex] != -1) {
-                EliminatePage[eliminateIndex++] = PageFrames[maxFreqIndex];
-            }
-
-            // 进行页面替换
-            PageFrames[maxFreqIndex] = next;
-            frequency[maxFreqIndex] = 1;  // 新页面初始使用频率为1
+    // 1. 检查是否有空闲页框
+    for (int i = 0; i < FrameNumber; i++) {
+        if (PageFrames[i] == -1) { // 假设-1代表空页框
+            targetFrameIndex = i;
+            break;
         }
+    }
 
-        // 报告当前实存中页号
+    if (targetFrameIndex != -1) { // 2. 如果有空闲页框，直接使用
+        // 不需要记录淘汰页，因为是填入空框
+    } else { // 3. 如果所有页框都满了，执行MFU替换逻辑
+        int maxFreqIndex = 0;
+        for (int i = 1; i < FrameNumber; i++) {
+            if (frequency[i] > frequency[maxFreqIndex]) {
+                maxFreqIndex = i;
+            }
+        }
+        targetFrameIndex = maxFreqIndex;
+
+        // 记录被淘汰的页面
+        if (PageFrames[targetFrameIndex] != -1) { // 确保确实有页面被淘汰
+            EliminatePage[eliminateIndex++] = PageFrames[targetFrameIndex];
+        }
+    }
+
+    // 进行页面替换/填充
+    PageFrames[targetFrameIndex] = next;
+    frequency[targetFrameIndex] = 1;  // 新页面或刚调入页面的初始使用频率为1
+}
         for (int j = 0; j < FrameNumber; j++) {
             if (PageFrames[j] >= 0)
                 cout << PageFrames[j] << " ";
@@ -358,7 +383,7 @@ void Replace::Mfu(void) {
     Report();
 }
 
-int main(int argc, char* argv[]) {
+   int main(int argc, char* argv[]) {
     Replace* vmpr = new Replace();
     vmpr->Fifo();
     vmpr->Lru();
@@ -367,4 +392,5 @@ int main(int argc, char* argv[]) {
     vmpr->Lfu();
     vmpr->Mfu();
     return 0;
+   
 }

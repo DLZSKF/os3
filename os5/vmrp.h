@@ -22,4 +22,3 @@ class Replace {
     int FrameNumber;     // 实存帧数
     int FaultNumber;     // 失败页数
 };
-
