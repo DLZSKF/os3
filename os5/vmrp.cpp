@@ -51,7 +51,7 @@ void Replace::Lru(void) {
                 PageFrames[0] = next;
                 break;
             }
-        }
+       }
         if (PageFrames[0] == next) {
             // 如果引用页已放栈顶，则为不缺页，报告当前内存页号
             for (j = 0; j < FrameNumber; j++)
