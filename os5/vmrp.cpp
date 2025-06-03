@@ -77,7 +77,7 @@ void Replace::Lru(void) {
             cout << "->" << EliminatePage[l++] << endl;
         else
             cout << endl;
-    }
+   }
     // 分析统计选择的算法对于当前引用的页面走向的性能
     Report();
 }
