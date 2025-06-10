@@ -11,7 +11,7 @@ class DiskArm {
     ~DiskArm();
     void InitSpace(char* MethodName);  // 初始化寻道记录
     void Report(void);                // 报告算法执行情况
-    void Fcfs(void);                   // 先来先服务算法
+    void Fcfs(void);                  // 先来先服务算法
     void Sstf(void);                   // 最短寻道时间优先算法
     void Scan(void);                   // 电梯调度算法
     void CScan(void);                  // 均匀电梯调度算法
