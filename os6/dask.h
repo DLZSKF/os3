@@ -15,7 +15,7 @@ class DiskArm {
     void Sstf(void);                   // 最短寻道时间优先算法
     void Scan(void);                   // 电梯调度算法
     void CScan(void);                  // 均匀电梯调度算法
-    void Look(void);                   // LOOK 调度算法
+    void Look(void);                  // LOOK 调度算法
    private:
     int* Request;         // 磁盘请求道号
     int* Cylinder;        // 工作柱面道号号
